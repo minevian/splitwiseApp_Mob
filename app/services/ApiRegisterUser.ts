@@ -2,6 +2,8 @@ import { IGetOtp,
      IGetOtpRespone,
       IGetUserData,
       IGetUserDataRespone,
+      ILoginUserRequest,
+      ILoginUserResponse,
       IRegisterUserRequest, 
       IRegisterUserResponse,
        IverifyOtp,
@@ -40,6 +42,15 @@ export const getUserData = async(
 ) => {
     const response = await apiClient.post<IGetUserDataRespone>(
         "/getUserGetails",data
+    );
+    return response.data
+}
+
+export const loginUser = async(
+    data:ILoginUserRequest
+) => {
+    const response = await apiClient.post<ILoginUserResponse>(
+        "/login",data
     );
     return response.data
 }

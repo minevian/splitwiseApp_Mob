@@ -6,22 +6,17 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getGenerateOtp } from '../services/ApiRegisterUser';
+import { getGenerateOtp, loginUser } from '../services/ApiRegisterUser';
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const router = useRouter();
 
 
   const schema = yup.object().shape({
-    userName: yup.string().required('User Name is required'),
+   
     email:yup.string().required('Enter Mail ID'),
-    phoneNumber: yup.string()
-      .matches(/^[0-9]+$/, 'Phone number must contain only digits')
-      .required('Phone Number is required'),
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-    confirmPassword: yup.string()
-      .oneOf([yup.ref('password')], 'Passwords must match')
-      .required('Confirm Password is required')
+   
   });
 
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -29,23 +24,23 @@ const RegisterPage = () => {
   });
 
 
-
-;
-
 const onSubmit = async (data: any) => {
   console.log('Submitting Form:', data);
 
   try {
     await AsyncStorage.setItem('registrationData', JSON.stringify(data));
 
-    const fetchOtp = await getGenerateOtp({ email: data.email });
+    const loginData = await loginUser({
+       email: data.email,
+      password:data.password
+     });
     
-    console.log('OTP Response:', fetchOtp);
+    console.log('OTP Response:', loginData);
 
-    if (fetchOtp?.success) {
-      router.push('/Authentication/OtpValidationPage');
+    if (loginData?.success) {
+      router.push('/(home)/home');
     } else {
-      Alert.alert('Error', 'Failed to generate OTP');
+      Alert.alert(loginData.message);
     }
 
   } catch (error: any) {
@@ -68,24 +63,9 @@ const onSubmit = async (data: any) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.card}>
         <Image source={require('../../assets/images/splitzApp.png')} style={styles.image} />
-        <Text style={styles.text}>Registration Form</Text>
+        <Text style={styles.text}>Login Form</Text>
 
-        <Controller
-          control={control}
-          name="userName"
-          render={({ field: { onChange, value } }) => (
-            <>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter User Name"
-                 placeholderTextColor="#888"
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.userName && <Text style={styles.error}>{errors.userName.message}</Text>}
-            </>
-          )}
-        />
+      
                 <Controller
           control={control}
           name="email"
@@ -102,25 +82,6 @@ const onSubmit = async (data: any) => {
             </>
           )}
         />
-
-        <View style={styles.phoneContainer}>
-          <Text style={styles.countryCode}>+91</Text>
-          <Controller
-            control={control}
-            name="phoneNumber"
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={styles.phoneInput}
-                placeholder="Enter Phone Number"
-                placeholderTextColor="#888"
-                keyboardType="numeric"
-                value={value}
-                onChangeText={onChange}
-              />
-            )}
-          />
-        </View>
-        {errors.phoneNumber && <Text style={styles.error}>{errors.phoneNumber.message}</Text>}
 
 
         <Controller
@@ -141,29 +102,10 @@ const onSubmit = async (data: any) => {
           )}
         />
 
-        <Controller
-          control={control}
-          name="confirmPassword"
-          
-          render={({ field: { onChange, value } }) => (
-            <>
-              <TextInput
-               style={styles.input}
-                placeholder="Confirm Password"
-                 placeholderTextColor="#888"
-                secureTextEntry
-                value={value}
-                onChangeText={onChange}
-              />
-              {errors.confirmPassword && <Text style={styles.error}>{errors.confirmPassword.message}</Text>}
-            </>
-          )}
-        />
-
-        <Button title="Register" color='#08306b' onPress={handleSubmit(onSubmit)} />
+        <Button title="Login" color='#08306b' onPress={handleSubmit(onSubmit)} />
         <Text style={{ marginVertical: 10 }}>
-          Already have an account?
-          <Text style={styles.link} onPress={()=>{router.push('/Authentication/LoginPage')}}> Click Here to Login</Text>
+          Not have an account?
+          <Text style={styles.link} onPress={()=>{router.push('/')}}> Click Here to Register</Text>
         </Text>
 
       </View>
@@ -171,7 +113,7 @@ const onSubmit = async (data: any) => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
 
 const styles = StyleSheet.create({
   scrollContainer: {

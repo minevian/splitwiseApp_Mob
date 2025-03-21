@@ -71,7 +71,46 @@ export interface IGetUserDataRespone {
     userName: string;
     email: string;
     phoneNumber: string;
-    createdDate: string
+    createdDate: string;
+    profileImage:string;
+  }
+  | null
+}
+
+export interface ILoginUserRequest {
+  email: string;
+  password: string
+}
+export interface ILoginUserResponse {
+  success: boolean;
+  message: string;
+  data:
+  |
+  {
+    userId: string;
+    email: string;
+    userName: string;
+    
+  }
+  | null
+}
+
+export interface IUpdateProfileImageRequest {
+  email: string;
+  Image: File;
+}
+
+export interface IUpdateProfileImageResponse {
+  success: boolean;
+  message: string;
+  data:
+  |
+  {
+    userName: string;
+    phoneNumber: string;
+    email: string;
+    createdAt:string;
+    profileImage:string
   }
   | null
 }

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const apiClient = axios.create({
+const apiMultimediaClient = axios.create({
     // baseURL:'http://localhost:8080/api/',
     baseURL:'https://splitwiseapp-api.onrender.com/api',
     headers:{
-        "Content-Type":"application/json"
+       'Content-Type': 'multipart/form-data' 
     }
 })
 
-export default apiClient
+export default apiMultimediaClient

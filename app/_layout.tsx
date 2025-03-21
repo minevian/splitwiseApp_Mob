@@ -31,21 +31,25 @@ export default function RootLayout() {
   }
 
   return (
-   
-      <Stack
-      screenOptions={{headerTitleStyle: { color : theme.headerBackground},
-    headerTintColor: theme.text, 
+
+    <Stack
+    screenOptions={{
+      headerShown: false,  // Hide header globally
+      headerTitleStyle: { color: theme.headerBackground },
+      headerTintColor: theme.text,
     }}
 
-      >
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="/Authentication/OtpValidationPage" options={{ headerShown: false }} />
-        <Stack.Screen name="OtpValidationPage" options={{ headerShown: false }} />
+    >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="/Authentication/OtpValidationPage" options={{ headerShown: false }} />
+      <Stack.Screen name="OtpValidationPage" options={{ headerShown: false }} />
+      <Stack.Screen name='ProfilePage' options={{ headerShown: false }} />
+      <Stack.Screen name='LoginPage' options={{ headerShown: false }} />
+      <Stack.Screen name='/Authentication/LoginPage' options={{ headerShown: false }} />
+      <Stack.Screen name="(home)" options={{ headerShown: false }} />
+      <Stack.Screen name="+not-found" />
+    </Stack>
 
-        <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-     
-  
+
   );
 }
