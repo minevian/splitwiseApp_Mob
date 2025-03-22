@@ -47,6 +47,7 @@ export default function RootLayout() {
       <Stack.Screen name='LoginPage' options={{ headerShown: false }} />
       <Stack.Screen name='/Authentication/LoginPage' options={{ headerShown: false }} />
       <Stack.Screen name="(home)" options={{ headerShown: false }} />
+      <Stack.Screen name="GroupChatScreen" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
 
