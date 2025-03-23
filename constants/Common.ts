@@ -238,3 +238,40 @@ export interface IGetGroupByIdResponse{
   }
   | null
 }
+
+export interface IGetExpenseDetailResponse{
+  success: boolean;
+  message:string,
+  settlements:
+  |
+  {
+    totalAmount:number,
+    _id: string,
+    groupName: string,
+    createdBy:string,
+    members: [
+      { 
+        userName: string,
+        email: string,
+       _id:string
+       },
+  
+    ],
+   
+    expenses: [
+      {
+        description: string,
+        amount: number,
+        paidBy: string,
+        _id:string,
+        date:string
+      },
+  
+    ]
+  
+    createdAt: string,
+    __v: Number
+  
+  }
+  | null
+}

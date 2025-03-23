@@ -37,3 +37,12 @@ export const fetchAllGroups = async (createdBy: string) => {
     return response.data;
   };
   
+  export const handleExpenseDetails= async (
+    data: any
+) => {
+    const response = await apiClient.post<any>(
+        "/addExpense",
+        data
+    );
+    return response.data
+}

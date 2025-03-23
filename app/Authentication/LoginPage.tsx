@@ -25,7 +25,7 @@ const LoginPage = () => {
 
 
 const onSubmit = async (data: any) => {
-  console.log('Submitting Form:', data);
+
 
   try {
     await AsyncStorage.setItem('registrationData', JSON.stringify(data));
@@ -35,7 +35,6 @@ const onSubmit = async (data: any) => {
       password:data.password
      });
     
-    console.log('OTP Response:', loginData);
 
     if (loginData?.success) {
       router.push('/(home)/home');
@@ -46,11 +45,11 @@ const onSubmit = async (data: any) => {
   } catch (error: any) {
     console.error('Error:', error.message);
     if (error.response) {
-      console.log('Server responded with:', error.response.data);
+      Alert.alert('Server responded with:', error.response.data);
     } else if (error.request) {
-      console.log('No response received:', error.request);
+      Alert.alert('No response received:', error.request);
     } else {
-      console.log('Error message:', error.message);
+      Alert.alert('Error message:', error.message);
     }
 
     Alert.alert('Network Error', 'Failed to connect to server. Check your network connection.');

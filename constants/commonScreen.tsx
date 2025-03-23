@@ -3,7 +3,7 @@ import React from 'react';
 
 const CommonScreen = () => {
 
-    const defaultImage = require('../assets/images/defaultImage.png');
+    const defaultImage = require('../assets/images/DefaultGif.gif');
 
     return (
         <View style={styles.container}>
@@ -16,6 +16,7 @@ const CommonScreen = () => {
                     style={styles.image}
                     resizeMode="contain"
                 />
+                <Text style={styles.text}>Ugh!! Look like You didn't have any activities Yet</Text>
             </View>
         </View>
     );
@@ -36,12 +37,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 200,
         height: 200,
-        marginTop:10
+        marginTop:20
     },
     image: {
-        width: '200%',
-        height: '200%',
+        width: '100%',
+        height: '100%',
         marginVertical:'auto'
         
+    },
+    text:{
+        textAlign:'center',
+        fontFamily:'san-serif',
+        fontSize:25,
+        fontWeight:'bold'
     }
 });

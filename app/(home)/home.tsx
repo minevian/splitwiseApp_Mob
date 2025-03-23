@@ -35,7 +35,11 @@ const Home = () => {
       try {
         const storedData = await AsyncStorage.getItem('registrationData');
         if (storedData) {
-          setUserData(JSON.parse(storedData));
+          const parsedData = JSON.parse(storedData);
+       
+          
+        setUserData(parsedData);
+       
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -64,7 +68,6 @@ const Home = () => {
               if (getAllCreatedGroup.success) {
                 setGroupExists(true);
                 setGroupDetails(getAllCreatedGroup.groups);
-                console.log('GroupDetails', getAllCreatedGroup.groups)
               } else {
                 setGroupExists(false);
               }
@@ -99,10 +102,10 @@ const Home = () => {
       createdBy: userDetail?.userId,
       members: membersWithHiddenFields,
     };
-    console.log('Group Created:', newGroupReuest);
+   
 
     const handleNewGroups = await handleCreateNewGroup(newGroupReuest);
-    console.log('handleNewGroups', handleNewGroups)
+ 
     if (handleNewGroups.success === true) {
       setGroupDetails(handleNewGroups.group)
       Alert.alert('Group Created Successfully');
@@ -112,7 +115,7 @@ const Home = () => {
       if (getAllCreatedGroup.success) {
 
         setGroupDetails(getAllCreatedGroup.groups);
-        console.log('Updated Group Details:', getAllCreatedGroup.groups);
+       
       } else {
         Alert.alert('Try Refresh To Get a Group')
       }
@@ -127,6 +130,20 @@ const Home = () => {
     setMembers([...members, { userName: '', email: '', amountPaid: 0, owes: 0, gets: 0 }]);
   };
   const handleOpenModal = () => {
+    // Add the current user to the group by default
+    if (userData && userData.userName && userData.email) {
+      const currentUser = {
+        userName: userData.userName,
+        email: userData.email,
+        amountPaid: 0,
+        owes: 0,
+        gets: 0
+      };
+  
+      // Add the current user as the first member if not already added
+      setMembers([currentUser]);
+    }
+  
     setIsModalVisible(true);
   };
 
@@ -140,7 +157,7 @@ const handleGroupChat = async (groupId:string)=>{
   const groupByIdRes = await fetchGroupsById(groupId);
   if(groupByIdRes.success === true){
     const groupData = groupByIdRes.group;
-    console.log('groupData',groupData)
+  
 
     // Convert all values to string and handle undefined cases
     const params = new URLSearchParams({
@@ -225,6 +242,7 @@ const handleGroupChat = async (groupId:string)=>{
                     style={styles.input}
                     placeholder="Member Name"
                     value={member.userName}
+                    editable={member.email !== userData?.email}
                     onChangeText={(text) => {
                       const newMembers = [...members];
                       newMembers[index].userName = text;
@@ -235,6 +253,7 @@ const handleGroupChat = async (groupId:string)=>{
                     style={styles.input}
                     placeholder="Email"
                     value={member.email}
+                    editable={member.email !== userData?.email}
                     onChangeText={(text) => {
                       const newMembers = [...members];
                       newMembers[index].email = text;

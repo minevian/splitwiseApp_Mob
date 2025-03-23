@@ -71,7 +71,7 @@ const ProfilePage = () => {
       uploadImage(result.assets[0].uri);
       setModalVisible(false);
     } else {
-      console.log("Camera operation was canceled.");
+    Alert.alert("Camera operation was canceled.");
     }
   };
 
@@ -93,7 +93,7 @@ const ProfilePage = () => {
       uploadImage(result.assets[0].uri);
       setModalVisible(false);
     } else {
-      console.log("Gallery operation was canceled.");
+      Alert.alert("Gallery operation was canceled.");
     }
   };
   const uploadImage = async (uri: string) => {
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   cameraIcon: {
     position: 'absolute',
     bottom: 10,
-    right: 70,
+    right: 80,
     backgroundColor: '#fff',
     borderRadius: 25,
     width: 40,
