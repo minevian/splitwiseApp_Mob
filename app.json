@@ -9,11 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.splitApp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/splitzApp.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.splitApp"
@@ -21,14 +25,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/splitzCurrencyBackground.png"
+      "favicon": "./assets/images/splitzApp.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splitzCurrencyBackground.png",
+          "image": "./assets/images/splitzApp.png",
           "imageWidth": 200,
           "resizeMode": "cover",
           "backgroundColor": "#000000"
@@ -37,6 +41,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "9c7685b7-6573-46b4-a47e-de5531d3acad"
+      }
     }
   }
 }
